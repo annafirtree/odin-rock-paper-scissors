@@ -1,0 +1,1 @@
+This is Anna Macdonald's completion of the Odin Project's [Rock Paper Scissors](https://www.theodinproject.com/courses/web-development-101/lessons/rock-paper-scissors) project.

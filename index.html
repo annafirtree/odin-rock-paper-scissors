@@ -1,0 +1,40 @@
+<html>
+    <body></body>
+    <script>
+       function computerPlay(){
+           let x = Math.random();
+           if(x < .33){
+               return "rock";
+           } else if (x < .66) {
+               return "paper";
+           } else {
+               return "scissors";
+           }
+       } 
+
+       function playRound(playerSelection, computerSelection){
+           let player = playerSelection.toLowerCase();
+           let computer = computerSelection.toLowerCase();
+           if (player == computer){
+               return "TIE!!";
+           }else if ((player == "rock" && computer == "scissors") || 
+                    (player == "paper" && computer == "rock") || 
+                    (player == "scissors" && computer == "paper")){
+                        return "YOU WIN!"
+            }else{
+                return "LOSER."
+            }
+            
+       }
+
+       function game(){
+           for(i=0; i<5; i++){
+               let player = prompt("Pick rock, paper, or scissors.");
+               let computer = computerPlay();
+               console.log("player: " + player + ", computer: " + computer + ", which means: " + playRound(player, computer));
+               console.log(i);
+           }
+
+       }
+    </script>
+</html>
