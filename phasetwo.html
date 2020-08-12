@@ -1,0 +1,132 @@
+<html>
+    <style>
+        button{
+            margin: 50px auto 50px auto;
+            font: 20px Garamond, serif;
+        }
+        #button-container{
+            display: flex;
+        }
+        #results{
+            border: 2px solid black;
+            /* text-align: center; */
+
+        }
+        .row{
+            display: flex;
+            border: 1px solid gray;
+        }
+        .table{
+            margin: auto;
+            padding: 10px;
+        }
+    </style>
+    <body>
+        <div id="button-container">
+            <button id="rock">Rock</button>
+            <button id="paper">Paper</button>
+            <button id="scissors">Scissors</button>
+        </div>
+        <div id="results">
+            <div class="row">
+                <p class="table">PLAYER</p>
+                <p class="table">COMPUTER</p>
+                <p class="table">SCORE (P/C)</p>
+            </div>
+        </div>
+
+    </body>
+    <script>
+        let playerTotal=0;
+        let computerTotal=0;
+        let endGame = false;
+
+       function computerPlay(){
+           let x = Math.random();
+           if(x < .33){
+               return "rock";
+           } else if (x < .66) {
+               return "paper";
+           } else {
+               return "scissors";
+           }
+       } 
+
+       function playRound(playerSelection, computerSelection){
+           let player = playerSelection.toLowerCase();
+           let computer = computerSelection.toLowerCase();
+           if (player == computer){
+               return;
+           }else if ((player == "rock" && computer == "scissors") || 
+                    (player == "paper" && computer == "rock") || 
+                    (player == "scissors" && computer == "paper")){
+                        playerTotal++;
+                        // return `${playerTotal}/${computerTotal}`
+            }else{
+                computerTotal++;
+                // return "LOSER."
+            }
+            
+       }
+       // event listeners
+       const buttons = document.querySelectorAll('button');
+       buttons.forEach(function(button) {
+           button.addEventListener('click', () =>{
+               let choice = button.getAttribute('id');
+               game(choice);
+           }
+       )});
+
+       function game(playerChoice){
+        if(endGame) return;
+        //get univeral elements
+        const resultBox = document.createElement('p');
+        const rowDiv = document.createElement('div');
+        const resultDiv = document.querySelector('#results');
+
+        //get conditional elements
+        if(playerTotal == 5){
+            resultBox.textContent = "YOU WIN!"
+            endGame = true;
+           }else if(computerTotal == 5){
+               resultBox.textContent = "YOU LOST. SADFACE."
+               endGame = true;
+           }else{
+            const playerBox = document.createElement('p');
+            const computerBox = document.createElement('p');
+            playerBox.classList.add('table');
+            computerBox.classList.add('table');
+            
+            //play the game
+            const computerChoice = computerPlay();
+            playRound(playerChoice, computerChoice);
+
+            //print to boxes
+            playerBox.textContent = playerChoice;
+            computerBox.textContent = computerChoice;
+            resultBox.textContent = `${playerTotal}/${computerTotal}`
+            
+            //add boxes to page
+            rowDiv.appendChild(playerBox);
+            rowDiv.appendChild(computerBox);
+           }
+           resultBox.classList.add('table');
+           rowDiv.classList.add('row')
+           rowDiv.appendChild(resultBox);
+           resultDiv.appendChild(rowDiv);
+
+       }
+
+       
+
+    //    function game(){
+    //        for(i=0; i<5; i++){
+    //            let player = prompt("Pick rock, paper, or scissors.");
+    //            let computer = computerPlay();
+    //            console.log("player: " + player + ", computer: " + computer + ", which means: " + playRound(player, computer));
+    //            console.log(i);
+    //        }
+
+    //    }
+    </script>
+</html>
